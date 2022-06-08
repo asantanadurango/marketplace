@@ -1,0 +1,13 @@
+export const ADDTOTAL = 'ADDTOTAL';
+export const SUBTRACTTOTAL = 'SUBTRACTTOTAL';
+
+export const ADDTOCART = 'ADDTOCART';
+export const REMOVETOCART = 'REMOVETOCART';
+
+export const FILTERPRODUCTS = 'FILTERPRODUCTS';
+export const SETLISTFILTER = 'SETLISTFILTER';
+
+export const CALLDATA = 'CALLDATA';
+export const SETKEYWORD = 'SETKEYWORD';
+
+export const ADDTOLISTCOMBOS = 'ADDTOLISTCOMBOS';
