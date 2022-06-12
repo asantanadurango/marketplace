@@ -5,13 +5,13 @@ const listCategories = [{ title: 'Todos', categorys: ['<=COP$100', 'COP$100 - CO
 
 const initialStore = {
 	categorys: [],
-	marcas: [],
+	brands: [],
 	data: [],
 	cart: [],
 	listCategories: [],
 	dataForShow: [],
 	listCombos: [],
-	listFilters: { category: '', marca: '' },
+	listFilters: { category: '', brand: '' },
 	total: 0,
 	keyword: '',
 };
@@ -20,13 +20,13 @@ const REDUCER = (state = initialStore, action) => {
 	switch (action.type) {
 		case CALLDATA:
 			const categorys = [...new Set(action.payload.map(p => p.category))];
-			const marcas = [...new Set(action.payload.map(p => p.marca))];
+			const brands = [...new Set(action.payload.map(p => p.brand))];
 
 			return {
 				...state,
 				data: action.payload,
 				categorys,
-				listCategories: [...listCategories, { title: 'Categorias', categorys }, { title: 'Marcas', categorys: marcas }],
+				listCategories: [...listCategories, { title: 'Categorias', categorys }, { title: 'Marcas', categorys: brands }],
 				dataForShow: action.payload,
 			};
 
@@ -35,12 +35,12 @@ const REDUCER = (state = initialStore, action) => {
 			if (!action.payload)
 				return {
 					...state,
-					listFilters: { category: '', marca: '' },
+					listFilters: { category: '', brand: '' },
 				};
 			let newFilter = {};
 			if (action.payload === 'Categorias') newFilter = { ...state.listFilters, category: '' };
-			if (action.payload === 'Marcas') newFilter = { ...state.listFilters, marca: '' };
-			if (state.data.some(e => e.marca === action.payload)) newFilter = { ...state.listFilters, marca: action.payload };
+			if (action.payload === 'Marcas') newFilter = { ...state.listFilters, brand: '' };
+			if (state.data.some(e => e.brand === action.payload)) newFilter = { ...state.listFilters, brand: action.payload };
 			if (state.data.some(e => e.category === action.payload)) newFilter = { ...state.listFilters, category: action.payload };
 
 			return {
@@ -51,14 +51,14 @@ const REDUCER = (state = initialStore, action) => {
 			const arrFinal = () => {
 				let result = [];
 				console.log(state.listFilters);
-				if (state.listFilters.category && state.listFilters.marca) {
+				if (state.listFilters.category && state.listFilters.brand) {
 					result = state.data.filter(
-						e => e.category === state.listFilters.category && e.marca === state.listFilters.marca
+						e => e.category === state.listFilters.category && e.brand === state.listFilters.brand
 					);
 				} else if (state.listFilters.category) {
 					result = state.data.filter(e => e.category === state.listFilters.category);
-				} else if (state.listFilters.marca) {
-					result = state.data.filter(e => e.marca === state.listFilters.marca);
+				} else if (state.listFilters.brand) {
+					result = state.data.filter(e => e.brand === state.listFilters.brand);
 				} else {
 					result = state.data;
 				}

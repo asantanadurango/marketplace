@@ -1,7 +1,9 @@
-import ProductList from '../../components/ProductList/ProductList.jsx';
 import { Container } from 'react-bootstrap';
 import { useParams } from 'react-router-dom';
+import ProductListMain from '../../components/ProductListMain/ProductListMain.jsx';
 import NotFound from '../NotFound/NotFound.jsx';
+// import ProductListMain from './../../components/ProductListCard/ProductListCard';
+// import ProductListMain from './../../components/ProductListMain/ProductListMain';
 const CategoryHome = ({ dataForShow = [], cart, data, addToCart, setListFilter, setKeyWord, keyword }) => {
 	const { query } = useParams();
 	const title = query ? query : 'All products';
@@ -24,12 +26,12 @@ const CategoryHome = ({ dataForShow = [], cart, data, addToCart, setListFilter, 
 			</div>
 			{keyword.length > 0 ? (
 				barResults.length > 0 ? (
-					<ProductList data={barResults} addToCart={addToCart} cart={cart} />
+					<ProductListMain data={barResults} addToCart={addToCart} cart={cart} />
 				) : (
 					<NotFound />
 				)
 			) : (
-				<ProductList data={dataForShow} addToCart={addToCart} cart={cart} />
+				<ProductListMain data={dataForShow} addToCart={addToCart} cart={cart} />
 			)}
 		</Container>
 	);

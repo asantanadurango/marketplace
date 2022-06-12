@@ -9,8 +9,8 @@ const BtnSetUnits = ({ action, btnText, varian, disabled = false }) => (
 	</Button>
 );
 
-const TableRecord = ({ record, removeToCart, addTotal, subtractTotal, resumen }) => {
-	const { name, description, marca, category, price, combo, img } = record;
+const ProductCardCart = ({ record, removeToCart, addTotal, subtractTotal, resumen }) => {
+	const { name, description, brand, category, price, combo, img } = record;
 	const [units, setUnits] = useState(1);
 	const add = () => {
 		setUnits(units + 1);
@@ -35,7 +35,7 @@ const TableRecord = ({ record, removeToCart, addTotal, subtractTotal, resumen })
 						<span>{description}</span>
 					</Card.Text>
 					<Card.Text className='mb-1'>
-						<span>{marca}</span>
+						<span>{brand}</span>
 					</Card.Text>
 					<Card.Text className='mb-1'>
 						<span>{category}</span>
@@ -77,4 +77,4 @@ const TableRecord = ({ record, removeToCart, addTotal, subtractTotal, resumen })
 	);
 };
 
-export default TableRecord;
+export default ProductCardCart;

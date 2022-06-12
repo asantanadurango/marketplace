@@ -3,9 +3,22 @@ import { Card, Button, Modal } from 'react-bootstrap';
 import BtnChecked from './../BtnChecked/BtnChecked';
 import { connect } from 'react-redux';
 import { useState } from 'react';
-import './ProductCart.css';
-const ProductCard = ({ name, description, marca, category, price, combo, img, addToCart, existOnCart = false, addTotal, data, addToListCombos }) => {
-	const prod = { name, description, marca, category, price, combo, img };
+import './ProductCardMain.css';
+const ProductCardMain = ({
+	name,
+	description,
+	brand,
+	category,
+	price,
+	combo,
+	img,
+	addToCart,
+	existOnCart = false,
+	addTotal,
+	data,
+	addToListCombos,
+}) => {
+	const prod = { name, description, brand, category, price, combo, img };
 	const [modalShow, setModalShow] = useState(false);
 
 	const MyVerticallyCenteredModal = props => {
@@ -17,7 +30,7 @@ const ProductCard = ({ name, description, marca, category, price, combo, img, ad
 				<Modal.Body className='p-1'>
 					<img src={img} className='w-100	 img-fluid' alt='' />
 					<h6>{description}</h6>
-					<h6>{marca}</h6>
+					<h6>{brand}</h6>
 					<h6>{category}</h6>
 				</Modal.Body>
 				<Modal.Footer>
@@ -44,12 +57,6 @@ const ProductCard = ({ name, description, marca, category, price, combo, img, ad
 		// console.log([prod, match]);
 		return [prod, match];
 	};
-
-	// const a = [{}, {}];
-	// const b = [{}, {}];
-	// const c = [];
-	// const d = [...c, b, a];
-	// console.log(d);
 
 	return (
 		<>
@@ -78,7 +85,7 @@ const ProductCard = ({ name, description, marca, category, price, combo, img, ad
 					</Button>
 					<Card.Body>
 						<Card.Title>{name}</Card.Title>
-						<Card.Title>{marca}</Card.Title>
+						<Card.Title>{brand}</Card.Title>
 						<Card.Text className='text-end'>
 							Price:
 							<strong> ${price.toLocaleString('es')}</strong>
@@ -140,4 +147,4 @@ const mapDispatchToProps = dispatch => ({
 	},
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(ProductCard);
+export default connect(mapStateToProps, mapDispatchToProps)(ProductCardMain);

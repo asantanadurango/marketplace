@@ -1,16 +1,15 @@
-import TableRecord from '../TableRecord/TableRecord';
-import './InvoiceTable.css';
+import './ProductListCart.css';
 import { connect } from 'react-redux';
-const InvoiceTable = ({ cart = [], total, removeToCart, addTotal, subtractTotal }) => {
+import ProductCardCart from '../ProductCardCart/ProductCardCart';
+const ProductListCart = ({ cart = [], total, removeToCart, addTotal, subtractTotal }) => {
 	const resumen = { cartLength: cart.length, total, shippingCosts: 0 };
 	return (
 		<div className='invoiceCart-container'>
 			<div className='container-ul-cart'>
 				<ul className='row'>
 					{cart.map((record, idx) => {
-						// console.log(record);
 						return (
-							<TableRecord
+							<ProductCardCart
 								key={idx}
 								record={record}
 								removeToCart={removeToCart}
@@ -70,4 +69,4 @@ const mapDispatchToProps = dispatch => ({
 	},
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(InvoiceTable);
+export default connect(mapStateToProps, mapDispatchToProps)(ProductListCart);

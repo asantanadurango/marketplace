@@ -1,21 +1,21 @@
-import ProductCard from '../ProductCard/ProductCard';
+import './ProductListMain.css';
 import { useParams } from 'react-router-dom';
-import './ProductList.css';
-const ProductList = ({ data = [], cart = [] }) => {
+import ProductCardMain from './../ProductCardMain/ProductCardMain';
+const ProductListMain = ({ data = [], cart = [] }) => {
 	const { query } = useParams();
 	const filters = query ? data.filter(p => p.category === query) : data;
 
 	return (
 		<div className='productList-container'>
 			<ul className='row'>
-				{filters.map(({ name, description, marca, category, price, combo, img }, idx) => {
+				{filters.map(({ name, description, brand, category, price, combo, img }, idx) => {
 					const existOnCart = cart.some(e => e.name === name);
 					return (
-						<ProductCard
+						<ProductCardMain
 							key={idx}
 							name={name}
 							description={description}
-							marca={marca}
+							brand={brand}
 							category={category}
 							price={price}
 							combo={combo}
@@ -30,4 +30,4 @@ const ProductList = ({ data = [], cart = [] }) => {
 	);
 };
 
-export default ProductList;
+export default ProductListMain;

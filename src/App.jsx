@@ -4,7 +4,7 @@ import initialCalled from './Helpers/initialCalled';
 import NavBar from './components/NavBar/NavBar';
 import Spinner from './components/Spinner/Spinner';
 import CartHome from './pages/CartHome/CartHome';
-import CategoryHome from './pages/CategoryHome/CategoryHome';
+import CategoryHome from './pages/MainHome/MainHome';
 import './App.css';
 import { Navigate, Route, Routes, useLocation } from 'react-router-dom';
 import BtnGoTo from './components/BtnGoTo/BtnGoTo';

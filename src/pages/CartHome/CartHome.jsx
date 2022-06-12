@@ -1,8 +1,9 @@
 import { Container } from 'react-bootstrap';
 import { useEffect } from 'react';
-import InvoiceTable from '../../components/InvoiceTable/InvoiceTable';
+// import ProductListCard from '../../components/ProductListCart/ProductListCart';
 import { connect } from 'react-redux';
 import BtnGoTo from '../../components/BtnGoTo/BtnGoTo';
+import ProductListCart from '../../components/ProductListCart/ProductListCart';
 
 const CartHome = () => {
 	useEffect(() => window.scrollTo(0, 0), []);
@@ -10,7 +11,7 @@ const CartHome = () => {
 		<Container fluid>
 			<h1 className='text-secondary border-bottom-info'>Cart</h1>
 			<BtnGoTo to='/' text='Back' />
-			<InvoiceTable />
+			<ProductListCart />
 		</Container>
 	);
 };

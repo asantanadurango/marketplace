@@ -6,7 +6,7 @@ import { SETKEYWORD } from '../../actions.js';
 
 const NavBar = ({ listCategories, filterByCategory, setListFilter, listFilters, setKeyWord, outHome = false }) => {
 	const selectCategory = listFilters.category;
-	const selectMarca = listFilters.marca;
+	const selectMarca = listFilters.brand;
 	return (
 		<Navbar bg='dark' variant='dark'>
 			{outHome ? (

@@ -36,7 +36,7 @@
 	margin-top: 5px;
 	padding: 20px;
 	outline-offset: 1px;
-	outline: 2px solid #7ddff3;
+	outline: 2px solid var(--bs-cyan);
 	border-radius: 10px;
 	-webkit-border-radius: 10px;
 	-moz-border-radius: 10px;
