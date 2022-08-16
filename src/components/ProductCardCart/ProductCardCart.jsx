@@ -1,17 +1,15 @@
-import React from 'react';
 import { useState } from 'react';
-import { Button, Card } from 'react-bootstrap';
+
+// COMPONENTS
 import GrupedSpan from './../GrupedSpan/GrupedSpan';
 
-const BtnSetUnits = ({ action, btnText, varian, disabled = false }) => (
-	<Button disabled={disabled} variant={varian} size='sm' onClick={action}>
-		{btnText}
-	</Button>
-);
+// REACT-BOOTSTRAP
+import { Button, Card } from 'react-bootstrap';
 
-const ProductCardCart = ({ record, removeToCart, addTotal, subtractTotal, resumen }) => {
+const ProductCardCart = ({ record, removeToCart, addTotal, subtractTotal }) => {
 	const { name, description, brand, category, price, combo, img } = record;
 	const [units, setUnits] = useState(1);
+
 	const add = () => {
 		setUnits(units + 1);
 		addTotal(price);
@@ -76,5 +74,11 @@ const ProductCardCart = ({ record, removeToCart, addTotal, subtractTotal, resume
 		</li>
 	);
 };
+
+const BtnSetUnits = ({ action, btnText, varian, disabled = false }) => (
+	<Button disabled={disabled} variant={varian} size='sm' onClick={action}>
+		{btnText}
+	</Button>
+);
 
 export default ProductCardCart;

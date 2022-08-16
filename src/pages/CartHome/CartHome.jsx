@@ -1,7 +1,9 @@
-import { Container } from 'react-bootstrap';
 import { useEffect } from 'react';
-// import ProductListCard from '../../components/ProductListCart/ProductListCart';
-import { connect } from 'react-redux';
+
+// REACT-BOOTSTRAP
+import { Container } from 'react-bootstrap';
+
+// COMPONENTS
 import BtnGoTo from '../../components/BtnGoTo/BtnGoTo';
 import ProductListCart from '../../components/ProductListCart/ProductListCart';
 
@@ -9,38 +11,13 @@ const CartHome = () => {
 	useEffect(() => window.scrollTo(0, 0), []);
 	return (
 		<Container fluid>
-			<h1 className='text-secondary border-bottom-info'>Cart</h1>
-			<BtnGoTo to='/' text='Back' />
+			<div className='border-bottom-info mb-2 d-flex justify-content-start align-items-center'>
+				<h1 className='text-secondary'>Cart</h1>
+				<BtnGoTo to='/' text='Back' />
+			</div>
 			<ProductListCart />
 		</Container>
 	);
 };
 
-const mapStateToProps = state => ({
-	data: state.data,
-	cart: state.cart,
-	categorys: state.categorys,
-});
-
-const mapDispatchToProps = dispatch => ({
-	callData(payload) {
-		dispatch({
-			type: 'CALLDATA',
-			payload,
-		});
-	},
-	handleAddToCart(payload) {
-		dispatch({
-			type: 'ADDTOCART',
-			payload,
-		});
-	},
-	handleDeleteToCart(payload) {
-		dispatch({
-			type: 'ADDTOCART',
-			payload,
-		});
-	},
-});
-
-export default connect(mapStateToProps, mapDispatchToProps)(CartHome);
+export default CartHome;

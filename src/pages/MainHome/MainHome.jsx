@@ -1,40 +1,52 @@
-import { Container } from 'react-bootstrap';
-import { useParams } from 'react-router-dom';
+// COMPONENTS
 import ProductListMain from '../../components/ProductListMain/ProductListMain.jsx';
-import NotFound from '../NotFound/NotFound.jsx';
-// import ProductListMain from './../../components/ProductListCard/ProductListCard';
-// import ProductListMain from './../../components/ProductListMain/ProductListMain';
-const CategoryHome = ({ dataForShow = [], cart, data, addToCart, setListFilter, setKeyWord, keyword }) => {
+
+// REACT-BOOTSTRAP
+import { Container } from 'react-bootstrap';
+
+// REACT-ROUTER-DOM
+import { useParams } from 'react-router-dom';
+
+// ACTIONS
+import { setKeyword, setFilterProductsBySearchbar, resetFilters } from '../../redux/actions';
+
+// REACT-REDUX
+import { useDispatch, useSelector } from 'react-redux/es/exports';
+
+const MainHome = () => {
+	// STORE - DISPATCH
+	const data = useSelector(state => state.dataReducer.data);
+	const dispatch = useDispatch();
+
 	const { query } = useParams();
 	const title = query ? query : 'All products';
 
-	let barResults;
-	if (keyword.length > 0) {
-		setListFilter('');
-		barResults = data.filter(e => e.name.toLowerCase().includes(keyword.toLowerCase()));
-		console.log(barResults);
-	}
+	const setProdFiltersOnUseEffect = keywordCurrent => {
+		const searchBarResults = data.filter(e => e.name.toLowerCase().includes(keywordCurrent.toLowerCase()));
+		if (keywordCurrent.length > 0) {
+			dispatch(resetFilters());
+			dispatch(setFilterProductsBySearchbar(searchBarResults));
+		} else {
+			dispatch(setFilterProductsBySearchbar(data));
+		}
+	};
+
 	return (
 		<Container fluid>
-			<div className='border-bottom-info d-flex justify-content-start align-items-center'>
-				<h1 className='text-secondary me-5 '>{title}</h1>
+			<div className='border-bottom-info mb-2 d-flex justify-content-start align-items-center'>
+				<h1 className='text-secondary me-5'>{title}</h1>
 				<input
-					onChange={e => setKeyWord(e.target.value)}
+					onChange={e => {
+						setProdFiltersOnUseEffect(e.target.value);
+						dispatch(setKeyword(e.target.value));
+					}}
 					type='text'
 					className='w-25 border border-2 border-info px-2 rounded-pill'
 				/>
 			</div>
-			{keyword.length > 0 ? (
-				barResults.length > 0 ? (
-					<ProductListMain data={barResults} addToCart={addToCart} cart={cart} />
-				) : (
-					<NotFound />
-				)
-			) : (
-				<ProductListMain data={dataForShow} addToCart={addToCart} cart={cart} />
-			)}
+			<ProductListMain />
 		</Container>
 	);
 };
 
-export default CategoryHome;
+export default MainHome;

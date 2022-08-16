@@ -1,90 +1,97 @@
-import { Navbar } from 'react-bootstrap';
-import NavLink from '../NavLink/NavLink.jsx';
-import { connect } from 'react-redux';
-import './NavBar.css';
-import { SETKEYWORD } from '../../actions.js';
+import { useEffect } from 'react';
 
-const NavBar = ({ listCategories, filterByCategory, setListFilter, listFilters, setKeyWord, outHome = false }) => {
-	const selectCategory = listFilters.category;
-	const selectMarca = listFilters.brand;
+// REACT-BOOTSTRAP
+import { Navbar } from 'react-bootstrap';
+
+// REACT-ROUTER-DOM
+import { Link } from 'react-router-dom';
+
+// REACT-REDUX
+import { useSelector, useDispatch } from 'react-redux/es/exports';
+
+// ACTONS
+import { selectFilter, setKeyword, resetFilters, filterProducts } from '../../redux/actions';
+
+// STYLES
+import './NavBar.css';
+
+const NavBar = ({ intoHome = true }) => {
+	// STORE - DISPATCH
+	const filterTags = useSelector(state => state.filtersReducer.filterTags);
+	const data = useSelector(state => state.dataReducer.data);
+	const selectedFilters = useSelector(state => state.filtersReducer.selectedFilters);
+	const itemsForNavList = Object.entries(filterTags);
+	const dispatch = useDispatch();
+
+	useEffect(() => {
+		if (Object.values(selectedFilters).every(e => e.length === 0)) {
+			dispatch(resetFilters(data));
+		}
+	}, [selectedFilters]);
+
 	return (
 		<Navbar bg='dark' variant='dark'>
-			{outHome ? (
-				<section className='my-5 w-100 col d-flex flex-column justify-content-start align-items-center'>
-					<NavLink to='/'>Home</NavLink>
-				</section>
-			) : (
-				listCategories.map(({ title, categorys }, idx) => {
+			{intoHome ? (
+				itemsForNavList.map((item, idx) => {
+					const [title, list] = item;
 					return (
 						<section key={idx}>
-							<nav className='nav col d-flex flex-column  align-items-start'>
+							<nav className='nav col d-flex flex-column align-items-start'>
 								<label className='item-category'>
 									<input
 										type='radio'
 										defaultChecked
 										name={title}
 										onClick={() => {
-											setListFilter(title);
-											filterByCategory('');
+											dispatch(setKeyword(''));
+											dispatch(
+												selectFilter({
+													by: title,
+													selected: '',
+												})
+											);
+											dispatch(filterProducts({ data }));
 										}}
 									/>
-									<strong>{title}</strong>
+									<strong>{title[0].toUpperCase() + title.substring(1)}</strong>
 								</label>
-								{categorys.map(category => (
-									<label className='item-category' htmlFor={category} key={category}>
+								{list.map((filterTag, idx) => (
+									<label className='item-category' htmlFor={filterTag} key={idx}>
 										<input
 											type='radio'
 											name={title}
-											id={category}
-											defaultChecked={
-												category === selectCategory ||
-												category === selectMarca
-													? true
-													: false
-											}
+											id={filterTag}
 											onClick={() => {
-												setListFilter(category);
-												filterByCategory(category);
-												setKeyWord('');
+												dispatch(setKeyword(''));
+												dispatch(
+													selectFilter({
+														by: title,
+														selected: filterTag,
+													})
+												);
+												dispatch(filterProducts({ data }));
 											}}
 										/>
-										<span>{category[0].toUpperCase() + category.substring(1)}</span>
+										<span>{filterTag[0].toUpperCase() + filterTag.substring(1)}</span>
 									</label>
 								))}
 							</nav>
 						</section>
 					);
 				})
+			) : (
+				<GoToHome />
 			)}
 		</Navbar>
 	);
 };
 
-const mapStateToProps = state => ({
-	listCategories: state.listCategories,
-	cart: state.cart,
-	listFilters: state.listFilters,
-});
+const GoToHome = () => (
+	<section className='my-5 w-100 col d-flex flex-column justify-content-start align-items-center'>
+		<Link to='/' className='nav-link mx-3 text-info'>
+			Home
+		</Link>
+	</section>
+);
 
-const mapDispatchToProps = dispatch => ({
-	filterByCategory(payload) {
-		dispatch({
-			type: 'FILTERPRODUCTS',
-			payload,
-		});
-	},
-	setListFilter(payload) {
-		dispatch({
-			type: 'SETLISTFILTER',
-			payload,
-		});
-	},
-	setKeyWord(payload) {
-		dispatch({
-			type: 'SETKEYWORD',
-			payload,
-		});
-	},
-});
-
-export default connect(mapStateToProps, mapDispatchToProps)(NavBar);
+export default NavBar;

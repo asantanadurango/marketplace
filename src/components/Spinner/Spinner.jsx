@@ -1,4 +1,3 @@
-import React from 'react';
 import { Spinner as SpinnerBoostrap, Button, Container } from 'react-bootstrap';
 const Spinner = ({ animation = 'grow', color = 'primary' }) => {
 	return (
