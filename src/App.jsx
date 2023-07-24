@@ -4,8 +4,6 @@ import { useEffect } from 'react';
 import NavBar from './components/NavBar/NavBar';
 import Spinner from './components/Spinner/Spinner';
 import MainHome from './pages/MainHome/MainHome';
-// import CartHome from './pages/CartHome/CartHome';
-// import CategoryHome from './pages/MainHome/MainHome';
 import BtnGoTo from './components/BtnGoTo/BtnGoTo';
 
 //REACT-ROUTER-DOM
@@ -24,15 +22,13 @@ import './App.css';
 // SERVICES
 import getAllData from './services/getAllData';
 import CartHome from './pages/CartHome/CartHome';
+import comparePaths from './utils/comparePaths';
 
+export const HOME_PATH = '/marketplace/'
 const App = () => {
 	// STORE
 	const data = useSelector(state => state.dataReducer.data);
-	const filteredProducts = useSelector(state => state.filtersReducer.filteredProducts);
 	const cart = useSelector(state => state.cartReducer.cart);
-	const keyword = useSelector(state => state.keywordReducer.keyword);
-	const filterTags = useSelector(state => state.filtersReducer.filterTags);
-
 	// DISPATCH
 	const dispatch = useDispatch();
 
@@ -43,22 +39,22 @@ const App = () => {
 	}, []);
 
 	const URLPATH = useLocation().pathname;
-	const intoHome = URLPATH === '/' ? true : false;
+	const intoHome = comparePaths(URLPATH, HOME_PATH)
 
 	return (
 		<div className='app-container'>
 			<NavBar intoHome={intoHome} />
 			<Routes>
 				<Route
-					path='/'
+					path={HOME_PATH}
 					element={
 						<>
 							{data.length === 0 ? <Spinner animation={'border'} color={'light'} /> : <MainHome />}
-							{cart.length > 0 && <BtnGoTo to='/cart' text={'Go to Cart'} />}
+							{cart.length > 0 && <BtnGoTo to={`${HOME_PATH}cart`} text={'Go to Cart'} />}
 						</>
 					}
 				/>
-				<Route path='/cart' element={cart.length > 0 ? <CartHome /> : <Navigate to='/' />} />
+				<Route path={`${HOME_PATH}cart`} element={cart.length > 0 ? <CartHome /> : <Navigate to={HOME_PATH}  />} />
 				<Route path='*' element={<NotFound />} />
 			</Routes>
 		</div>

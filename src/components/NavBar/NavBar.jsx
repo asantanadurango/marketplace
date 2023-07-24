@@ -14,6 +14,7 @@ import { selectFilter, setKeyword, resetFilters, filterProducts } from '../../re
 
 // STYLES
 import './NavBar.css';
+import { HOME_PATH } from '../../App';
 
 const NavBar = ({ intoHome = true }) => {
 	// STORE - DISPATCH
@@ -88,7 +89,7 @@ const NavBar = ({ intoHome = true }) => {
 
 const GoToHome = () => (
 	<section className='my-5 w-100 col d-flex flex-column justify-content-start align-items-center'>
-		<Link to='/' className='nav-link mx-3 text-info'>
+		<Link to={HOME_PATH} className='nav-link mx-3 text-info'>
 			Home
 		</Link>
 	</section>

@@ -11,7 +11,6 @@ import './ProductListMain.css';
 const ProductListMain = () => {
 	const filteredProducts = useSelector(state => state.filtersReducer.filteredProducts);
 	const cart = useSelector(state => state.cartReducer.cart);
-	console.log(filteredProducts);
 
 	return (
 		<div className='productList-container'>
